@@ -14,6 +14,7 @@ const DISABLED_CLASSNAME = 'nz-animate-disabled';
 
 @Directive({
   selector: '[nzNoAnimation]',
+  standalone: true,
   exportAs: 'nzNoAnimation'
 })
 export class NzNoAnimationDirective implements OnChanges, AfterViewInit {
