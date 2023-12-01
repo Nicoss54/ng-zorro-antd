@@ -10,7 +10,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzNoAnimationModule } from 'ng-zorro-antd/core/no-animation';
+import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
 import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
 import { NzOverlayModule } from 'ng-zorro-antd/core/overlay';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -30,7 +30,7 @@ import { NzDropDownDirective } from './dropdown.directive';
     NzButtonModule,
     NzMenuModule,
     NzIconModule,
-    NzNoAnimationModule,
+    NzNoAnimationDirective,
     PlatformModule,
     NzOverlayModule,
     NzContextMenuServiceModule,

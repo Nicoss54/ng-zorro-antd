@@ -6,7 +6,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { NzNoAnimationModule } from 'ng-zorro-antd/core/no-animation';
+import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 
@@ -32,7 +32,7 @@ import { NzGraphComponent } from './graph.component';
     NzGraphEdgeComponent,
     NzGraphEdgeDirective
   ],
-  imports: [CommonModule, NzIconModule, NzSpinModule, NzNoAnimationModule],
+  imports: [CommonModule, NzIconModule, NzSpinModule, NzNoAnimationDirective],
   exports: [
     NzGraphComponent,
     NzGraphMinimapComponent,

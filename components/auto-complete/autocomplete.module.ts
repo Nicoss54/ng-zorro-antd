@@ -8,7 +8,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { NzNoAnimationModule } from 'ng-zorro-antd/core/no-animation';
+import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
 import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
 import { NzInputModule } from 'ng-zorro-antd/input';
 
@@ -30,6 +30,6 @@ import { NzAutocompleteComponent } from './autocomplete.component';
     NzAutocompleteTriggerDirective,
     NzAutocompleteOptgroupComponent
   ],
-  imports: [BidiModule, CommonModule, OverlayModule, NzOutletModule, NzNoAnimationModule, NzInputModule]
+  imports: [BidiModule, CommonModule, OverlayModule, NzOutletModule, NzNoAnimationDirective, NzInputModule]
 })
 export class NzAutocompleteModule {}

@@ -10,7 +10,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { NzFormPatchModule } from 'ng-zorro-antd/core/form';
-import { NzNoAnimationModule } from 'ng-zorro-antd/core/no-animation';
+import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
 import { NzOverlayModule } from 'ng-zorro-antd/core/overlay';
 import { NzEmptyModule } from 'ng-zorro-antd/empty';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -30,7 +30,7 @@ import { NzTreeSelectComponent } from './tree-select.component';
     NzIconModule,
     NzEmptyModule,
     NzOverlayModule,
-    NzNoAnimationModule,
+    NzNoAnimationDirective,
     NzFormPatchModule
   ],
   declarations: [NzTreeSelectComponent],

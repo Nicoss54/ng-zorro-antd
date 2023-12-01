@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { NzHighlightModule } from 'ng-zorro-antd/core/highlight';
-import { NzNoAnimationModule } from 'ng-zorro-antd/core/no-animation';
+import { NzNoAnimationDirective } from 'ng-zorro-antd/core/no-animation';
 import { NzOutletModule } from 'ng-zorro-antd/core/outlet';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
@@ -27,7 +27,7 @@ import { NzTreeComponent } from './tree.component';
     CommonModule,
     NzOutletModule,
     NzIconModule,
-    NzNoAnimationModule,
+    NzNoAnimationDirective,
     NzHighlightModule,
     ScrollingModule
   ],
