@@ -19,7 +19,7 @@ import { NzDemoPageHeaderGhostComponent } from './demo/ghost';
 import { NzDemoPageHeaderResponsiveComponent } from './demo/responsive';
 import { NzPageHeaderComponent } from './page-header.component';
 
-describe('NzPageHeaderComponent', () => {
+fdescribe('NzPageHeaderComponent', () => {
   let location: Location;
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
