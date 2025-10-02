@@ -26,6 +26,7 @@ import { EMPTY } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { NzFormItemFeedbackIconComponent, NzFormNoStatusService, NzFormStatusService } from 'ng-zorro-antd/core/form';
+import { NzFormSizeService } from 'ng-zorro-antd/core/form/nz-form-size.service';
 import { NzSizeLDSType, NzStatus, NzVariant } from 'ng-zorro-antd/core/types';
 import { getStatusClassNames } from 'ng-zorro-antd/core/util';
 import { NZ_SPACE_COMPACT_ITEM_TYPE, NZ_SPACE_COMPACT_SIZE, NzSpaceCompactItemDirective } from 'ng-zorro-antd/space';
@@ -82,6 +83,10 @@ export class NzInputDirective implements OnInit {
   // TODO: When the input group is removed, we can remove this.
   readonly size = linkedSignal(this.nzSize);
 
+  protected readonly formSize = toSignal(inject(NzFormSizeService, { optional: true })?.formSize$ ?? EMPTY, {
+    initialValue: undefined
+  });
+
   readonly status = this.nzFormStatusService
     ? toSignal(this.nzFormStatusService.formStatusChanges.pipe(map(value => value.status)), { initialValue: '' })
     : this.nzStatus;
@@ -93,6 +98,9 @@ export class NzInputDirective implements OnInit {
 
   protected readonly focused = signal<boolean>(false);
   protected readonly finalSize = computed(() => {
+    if (this.formSize) {
+      return this.formSize();
+    }
     if (this.compactSize) {
       return this.compactSize();
     }

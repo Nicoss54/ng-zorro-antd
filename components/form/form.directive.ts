@@ -5,14 +5,16 @@
 
 import { Direction, Directionality } from '@angular/cdk/bidi';
 import {
-  Directive,
-  Input,
-  OnChanges,
-  SimpleChange,
-  SimpleChanges,
   booleanAttribute,
   DestroyRef,
-  inject
+  Directive,
+  effect,
+  inject,
+  Input,
+  input,
+  OnChanges,
+  SimpleChange,
+  SimpleChanges
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, Subject } from 'rxjs';
@@ -21,7 +23,8 @@ import { filter, map } from 'rxjs/operators';
 import { ThemeType } from '@ant-design/icons-angular';
 
 import { NzConfigKey, WithConfig } from 'ng-zorro-antd/core/config';
-import { InputObservable } from 'ng-zorro-antd/core/types';
+import { NzFormSizeService } from 'ng-zorro-antd/core/form/nz-form-size.service';
+import { InputObservable, type NzSizeLDSType } from 'ng-zorro-antd/core/types';
 
 const NZ_CONFIG_MODULE_NAME: NzConfigKey = 'form';
 
@@ -42,12 +45,16 @@ export const DefaultTooltipIcon = {
     '[class.ant-form-horizontal]': `nzLayout === 'horizontal'`,
     '[class.ant-form-vertical]': `nzLayout === 'vertical'`,
     '[class.ant-form-inline]': `nzLayout === 'inline'`,
-    '[class.ant-form-rtl]': `dir === 'rtl'`
-  }
+    '[class.ant-form-rtl]': `dir === 'rtl'`,
+    '[class.ant-form-small]': `nzSize() === 'small'`,
+    '[class.ant-form-large]': `nzSize() === 'large'`
+  },
+  providers: [NzFormSizeService]
 })
 export class NzFormDirective implements OnChanges, InputObservable {
   private destroyRef = inject(DestroyRef);
   private directionality = inject(Directionality);
+  private readonly nzFormSizeService = inject(NzFormSizeService);
 
   readonly _nzModuleName: NzConfigKey = NZ_CONFIG_MODULE_NAME;
 
@@ -58,6 +65,8 @@ export class NzFormDirective implements OnChanges, InputObservable {
   @Input() @WithConfig() nzTooltipIcon: string | { type: string; theme: ThemeType } = DefaultTooltipIcon;
   @Input() nzLabelAlign: NzLabelAlignType = 'right';
   @Input({ transform: booleanAttribute }) @WithConfig() nzLabelWrap: boolean = false;
+
+  readonly nzSize = input<NzSizeLDSType | undefined>();
 
   dir: Direction = 'ltr';
   private inputChanges$ = new Subject<SimpleChanges>();
@@ -76,6 +85,10 @@ export class NzFormDirective implements OnChanges, InputObservable {
     });
     this.destroyRef.onDestroy(() => {
       this.inputChanges$.complete();
+    });
+
+    effect(() => {
+      this.nzFormSizeService.setFormSize(this.nzSize());
     });
   }
 
