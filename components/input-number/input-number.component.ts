@@ -294,7 +294,7 @@ export class NzInputNumberComponent implements OnInit, ControlValueAccessor {
   });
 
   protected finalSize = computed(() => {
-    if (this.formSize) {
+    if (this.formSize()) {
       return this.formSize();
     }
     if (this.compactSize) {

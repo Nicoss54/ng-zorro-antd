@@ -1,6 +1,7 @@
 import { Component, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { NzCascaderModule } from 'ng-zorro-antd/cascader';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
@@ -8,7 +9,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @Component({
   selector: 'nz-demo-form-size',
-  imports: [FormsModule, NzFormModule, NzRadioModule, NzInputModule, NzInputNumberModule],
+  imports: [FormsModule, NzFormModule, NzRadioModule, NzInputModule, NzInputNumberModule, NzCascaderModule],
   template: `
     <form nz-form [nzSize]="size()">
       <nz-form-item>
@@ -31,6 +32,12 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
         <nz-form-label>Input Number</nz-form-label>
         <nz-form-control>
           <nz-input-number />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Cascader</nz-form-label>
+        <nz-form-control>
+          <nz-cascader [nzOptions]="[]" />
         </nz-form-control>
       </nz-form-item>
     </form>

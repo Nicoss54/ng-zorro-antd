@@ -98,7 +98,7 @@ export class NzInputDirective implements OnInit {
 
   protected readonly focused = signal<boolean>(false);
   protected readonly finalSize = computed(() => {
-    if (this.formSize) {
+    if (this.formSize()) {
       return this.formSize();
     }
     if (this.compactSize) {
