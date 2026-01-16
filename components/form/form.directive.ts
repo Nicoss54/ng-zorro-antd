@@ -22,7 +22,8 @@ import { filter, map } from 'rxjs/operators';
 import { ThemeType } from '@ant-design/icons-angular';
 
 import { NzConfigKey, WithConfig } from 'ng-zorro-antd/core/config';
-import { InputObservable } from 'ng-zorro-antd/core/types';
+import { NZ_FORM_VARIANT } from 'ng-zorro-antd/core/form';
+import { InputObservable, type NzVariant } from 'ng-zorro-antd/core/types';
 
 import type { NzRequiredMark } from './types';
 
@@ -46,7 +47,13 @@ export const DefaultTooltipIcon = {
     '[class.ant-form-vertical]': `nzLayout === 'vertical'`,
     '[class.ant-form-inline]': `nzLayout === 'inline'`,
     '[class.ant-form-rtl]': `dir === 'rtl'`
-  }
+  },
+  providers: [
+    {
+      provide: NZ_FORM_VARIANT,
+      useFactory: () => inject(NzFormDirective).nzVariant
+    }
+  ]
 })
 export class NzFormDirective implements OnChanges, InputObservable {
   private destroyRef = inject(DestroyRef);
@@ -63,6 +70,7 @@ export class NzFormDirective implements OnChanges, InputObservable {
   @Input({ transform: booleanAttribute }) @WithConfig() nzLabelWrap: boolean = false;
 
   readonly nzRequiredMark = input<NzRequiredMark>(true);
+  readonly nzVariant = input<NzVariant>('outlined');
 
   dir: Direction = 'ltr';
   private inputChanges$ = new Subject<SimpleChanges>();
