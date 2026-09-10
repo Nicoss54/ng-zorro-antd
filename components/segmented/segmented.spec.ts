@@ -582,6 +582,50 @@ describe('segmented animation', () => {
     expect(segmentedComponentInstance.showThumb()).toBe(false);
     expect(theSecondElement.classList).toContain('ant-segmented-item-selected');
   });
+
+  it('should not flash the previous orientation thumb after nzVertical is toggled at runtime', async () => {
+    await fixture.whenStable();
+    const theSecondElement = getSegmentedOptionByIndex(1);
+    const theThirdElement = getSegmentedOptionByIndex(2);
+
+    dispatchMouseEvent(theSecondElement, 'click');
+    await fixture.whenStable();
+    dispatchEvent(getThumbElement(), new TransitionEvent('transitionend', { propertyName: 'transform' }));
+    await fixture.whenStable();
+
+    component.vertical.set(true);
+    await fixture.whenStable();
+
+    dispatchMouseEvent(theThirdElement, 'click');
+    fixture.detectChanges();
+
+    const thumbElement = getThumbElement();
+    expect(thumbElement.style.transform).not.toContain('translateX');
+    expect(thumbElement.style.transform).toContain('translateY');
+  });
+
+  it('should not flash the previous orientation thumb after nzVertical is toggled back to false', async () => {
+    component.vertical.set(true);
+    await fixture.whenStable();
+
+    const theSecondElement = getSegmentedOptionByIndex(1);
+    const theThirdElement = getSegmentedOptionByIndex(2);
+
+    dispatchMouseEvent(theSecondElement, 'click');
+    await fixture.whenStable();
+    dispatchEvent(getThumbElement(), new TransitionEvent('transitionend', { propertyName: 'transform' }));
+    await fixture.whenStable();
+
+    component.vertical.set(false);
+    await fixture.whenStable();
+
+    dispatchMouseEvent(theThirdElement, 'click');
+    fixture.detectChanges();
+
+    const thumbElement = getThumbElement();
+    expect(thumbElement.style.transform).not.toContain('translateY');
+    expect(thumbElement.style.transform).toContain('translateX');
+  });
 });
 
 async function stabilize<T>(fixture: ComponentFixture<T>, ms?: number): Promise<void> {
