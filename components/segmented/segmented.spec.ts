@@ -626,6 +626,31 @@ describe('segmented animation', () => {
     expect(thumbElement.style.transform).not.toContain('translateY');
     expect(thumbElement.style.transform).toContain('translateX');
   });
+
+  it('should recompute the thumb style if nzVertical changes before the queued animation frame flushes', async () => {
+    await fixture.whenStable();
+    const theSecondElement = getSegmentedOptionByIndex(1);
+    const theThirdElement = getSegmentedOptionByIndex(2);
+    const segmentedComponentInstance = fixture.debugElement.query(By.directive(NzSegmentedComponent)).componentInstance;
+
+    dispatchMouseEvent(theSecondElement, 'click');
+    await fixture.whenStable();
+    dispatchEvent(getThumbElement(), new TransitionEvent('transitionend', { propertyName: 'transform' }));
+    await fixture.whenStable();
+
+    Object.defineProperty(theThirdElement, 'clientHeight', { value: 40, configurable: true });
+    Object.defineProperty(theThirdElement, 'offsetTop', { value: 10, configurable: true });
+
+    dispatchMouseEvent(theThirdElement, 'click');
+
+    segmentedComponentInstance.nzVertical = true;
+    await new Promise<void>(resolve => requestAnimationFrame(() => resolve()));
+    fixture.detectChanges();
+
+    const thumbElement = getThumbElement();
+    expect(thumbElement.style.transform).toContain('translateY(10px)');
+    expect(thumbElement.style.height).toBe('40px');
+  });
 });
 
 async function stabilize<T>(fixture: ComponentFixture<T>, ms?: number): Promise<void> {

@@ -135,9 +135,8 @@ export class NzSegmentedComponent implements OnChanges, ControlValueAccessor {
         const nextStyle = this.calcThumbStyle(element);
 
         if (prevStyle && nextStyle) {
-          // Trigger animation to end position
           requestAnimationFrame(() => {
-            this.thumbStyle.set(this.getThumbStyle(nextStyle));
+            this.thumbStyle.set(this.getThumbStyle(this.calcThumbStyle(element) ?? nextStyle));
           });
         } else if (nextStyle) {
           return this.getThumbStyle(nextStyle);
